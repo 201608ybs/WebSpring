@@ -1,7 +1,6 @@
 package com.example.springtest.Services;
 
 import com.example.springtest.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

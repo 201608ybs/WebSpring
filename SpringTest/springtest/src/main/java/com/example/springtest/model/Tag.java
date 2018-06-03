@@ -1,15 +1,13 @@
 package com.example.springtest.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Tag {
     private String tagId;
     private String tagContent;
+    private Problem problemByProblemId;
 
     @Id
     @Column(name = "tag_id")
@@ -44,5 +42,15 @@ public class Tag {
     public int hashCode() {
 
         return Objects.hash(tagId, tagContent);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "problem_id", referencedColumnName = "problem_id")
+    public Problem getProblemByProblemId() {
+        return problemByProblemId;
+    }
+
+    public void setProblemByProblemId(Problem problemByProblemId) {
+        this.problemByProblemId = problemByProblemId;
     }
 }

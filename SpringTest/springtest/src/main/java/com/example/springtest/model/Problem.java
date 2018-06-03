@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Problem {
     private String problemId;
     private String description;
-    private String userId;
     private String answer;
     private int updateTimes;
     private Date createTime;
@@ -44,16 +43,6 @@ public class Problem {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     @Basic
