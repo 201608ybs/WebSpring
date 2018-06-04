@@ -28,4 +28,40 @@ public class ProblemController {
     public String getProblemHistory(@RequestParam("problemId") String problemId){
         return problemService.getProblemHistory(problemId);
     }
+
+    @PostMapping(value = "removeTag")
+    @ResponseBody
+    public void removeTag(@RequestParam("tagId") String tagId,
+                          @RequestParam("problemId") String problemId){
+
+        problemService.removeTag(tagId);
+
+    }
+
+    @PostMapping(value = "addTag")
+    @ResponseBody
+    public String addTag(@RequestParam("tags[]") String[] tagContent,
+                          @RequestParam("problemId") String problemId){
+
+        return problemService.addTag(tagContent,problemId);
+
+    }
+
+    @PostMapping(value = "addHistory")
+    @ResponseBody
+    public String addTag(@RequestParam("historyContent") String historyContent,
+                         @RequestParam("problemId") String problemId){
+        return problemService.addHistory(historyContent,problemId);
+    }
+
+    @PostMapping(value = "addProblem")
+    @ResponseBody
+    public String addProblem(@RequestParam("title") String title,
+                         @RequestParam("userId") String userId,
+                             @RequestParam("answer") String answer,
+                             @RequestParam("description") String description,
+                             @RequestParam("tags[]") String[] tags){
+        return problemService.addProblem(title, userId, answer, description, tags);
+    }
 }
+
