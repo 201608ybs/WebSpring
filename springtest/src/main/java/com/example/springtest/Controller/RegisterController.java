@@ -1,6 +1,7 @@
 package com.example.springtest.Controller;
 
 import com.example.springtest.JavaBean.LogInResponse;
+import com.example.springtest.Util.AppConfig;
 import com.example.springtest.model.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class RegisterController {
             String id = result.get(0).getUserId();
             Cookie cookie = new Cookie("userId",id);
             response.addCookie(cookie);
+            AppConfig.setUserId(id);
         }
         else {
             res.setRole("");
@@ -67,6 +69,12 @@ public class RegisterController {
             }
         }
         return userService.getUserInfo(id);
+    }
+
+    @PostMapping(value = "getCommonUser")
+    @ResponseBody
+    public String getCommonUser(@RequestParam("userId") String userId){
+        return userService.getCommonUser(userId);
     }
 
 }

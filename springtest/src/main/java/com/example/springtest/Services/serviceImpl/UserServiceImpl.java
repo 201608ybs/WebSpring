@@ -2,12 +2,14 @@ package com.example.springtest.Services.serviceImpl;
 
 import com.example.springtest.JavaBean.InitializeBean;
 import com.example.springtest.JavaBean.SimpleProblem;
+import com.example.springtest.JavaBean.UserBean;
 import com.example.springtest.JavaBean.regResponse;
 import com.example.springtest.Services.UserService;
 import com.example.springtest.dao.ProblemRepository;
 import com.example.springtest.dao.UserRepository;
 import com.example.springtest.model.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -80,6 +82,21 @@ public class UserServiceImpl implements UserService {
         ib.setProblemTitles(problems);
         ib.setUserId(userId);
         String resStr = gson.toJson(ib);
+        return resStr;
+    }
+
+    @Override
+    public String getCommonUser(String userId){
+        User result = userRepository.findByUserId(userId).get(0);
+
+        UserBean ub = new UserBean();
+        ub.setUserName(result.getUsername());
+        ub.setUserId(result.getUserId());
+        ub.setPhoneNumber(result.getPhoneNumber());
+        ub.setPassword(result.getPassword());
+        ub.setEmail(result.getEmail());
+        ub.setState(result.getState());
+        String resStr = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(ub);
         return resStr;
     }
 }

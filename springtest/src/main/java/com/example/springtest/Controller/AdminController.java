@@ -13,37 +13,37 @@ public class AdminController {
 
     @GetMapping(value = "getAdminProblem")
     @ResponseBody
-    public String getAdminProblem(){
+    public String getAdminProblem() {
         return adminService.getAdminProblem();
     }
 
     @PostMapping(value = "getProblemByTag")
     @ResponseBody
-    public String getProblemByTag(@RequestParam("tag") String tagContent){
+    public String getProblemByTag(@RequestParam("tag") String tagContent) {
         return adminService.getProblemByTag(tagContent);
     }
 
     @PostMapping(value = "getProblemById")
     @ResponseBody
-    public String getProblemById(@RequestParam("problemId") String problemId){
+    public String getProblemById(@RequestParam("problemId") String problemId) {
         return adminService.getProblemById(problemId);
     }
 
     @PostMapping(value = "getProblemByUser")
     @ResponseBody
-    public String getProblemByUser(@RequestParam("userName") String userName){
+    public String getProblemByUser(@RequestParam("userName") String userName) {
         return adminService.getProblemByUser(userName);
     }
 
     @GetMapping(value = "getAllProblem")
     @ResponseBody
-    public String getAllProblem(){
+    public String getAllProblem() {
         return adminService.getAllProblem();
     }
 
     @GetMapping(value = "getUser")
     @ResponseBody
-    public String getAllUser(){
+    public String getAllUser() {
         return adminService.getAllUser();
     }
 
@@ -53,14 +53,30 @@ public class AdminController {
                                  @RequestParam("userName") String username,
                                  @RequestParam("password") String password,
                                  @RequestParam("phoneNumber") String phone,
-                                 @RequestParam("email") String email){
+                                 @RequestParam("email") String email) {
         return adminService.updateUserInfo(userId, username, password, phone, email);
     }
 
     @PostMapping(value = "userState")
     @ResponseBody
-    public void changeUserState(@RequestParam("userId") String userId){
+    public void changeUserState(@RequestParam("userId") String userId) {
         adminService.changeUserState(userId);
     }
 
+    @PostMapping(value = "deleteProblem")
+    @ResponseBody
+    public void deleteProblem(@RequestParam("problemId") String problemId) {
+        adminService.deleteProblem(problemId);
+    }
+
+    @PostMapping(value = "updateProblem")
+    @ResponseBody
+    public String updateProblem(@RequestParam("problemId") String problemId,
+                              @RequestParam("title") String title,
+                              @RequestParam("answer") String answer,
+                              @RequestParam("description") String description) {
+        return adminService.updateProblem(problemId, title, answer, description);
+    }
+
 }
+

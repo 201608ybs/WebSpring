@@ -4,9 +4,11 @@ import com.example.springtest.JavaBean.AllProblemBean;
 import com.example.springtest.JavaBean.ProblemDetail;
 import com.example.springtest.JavaBean.UserBean;
 import com.example.springtest.Services.AdminService;
+import com.example.springtest.dao.HistoryRepository;
 import com.example.springtest.dao.ProblemRepository;
 import com.example.springtest.dao.TagRepository;
 import com.example.springtest.dao.UserRepository;
+import com.example.springtest.model.History;
 import com.example.springtest.model.Problem;
 import com.example.springtest.model.Tag;
 import com.example.springtest.model.User;
@@ -32,6 +34,9 @@ public class AdminServiceImpl implements AdminService{
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private HistoryRepository historyRepository;
 
     @Override
     public String getAdminProblem(){
@@ -176,5 +181,40 @@ public class AdminServiceImpl implements AdminService{
             user.setState("Normal");
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public void deleteProblem(String problemId){
+        List<Tag> tagList = tagRepository.findByProblemId(problemId);
+        for (Tag tag:tagList){
+            tagRepository.delete(tag);
+        }
+        List<History> historyList = historyRepository.findByProblemId(problemId);
+        for (History history:historyList){
+            historyRepository.delete(history);
+        }
+        problemRepository.delete(problemRepository.findByProblemId(problemId).get(0));
+    }
+
+    @Override
+    public String updateProblem(String problemId, String title, String answer, String description){
+        Problem problem = problemRepository.findByProblemId(problemId).get(0);
+        problem.setTitle(title);
+        problem.setDescription(description);
+        problem.setAnswer(answer);
+        problemRepository.saveAndFlush(problem);
+
+        ProblemDetail detail = new ProblemDetail();
+        detail.setAnswer(answer);
+        detail.setCreateTime(problem.getCreateTime());
+        detail.setDescription(description);
+        detail.setLastUpdateTime(problem.getLastUpdateTime());
+        detail.setProblemId(problem.getProblemId());
+        detail.setPublisher(problem.getUserByUserId().getUsername());
+        detail.setTitle(title);
+        detail.setUpdateTimes(problem.getUpdateTimes());
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        String retStr = gson.toJson(detail);
+        return retStr;
     }
 }

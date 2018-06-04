@@ -15,5 +15,6 @@ public interface AdminService {
     String getAllUser();
     String updateUserInfo(String userId, String username, String password, String phone, String email);
     void changeUserState(String userId);
-
+    void deleteProblem(String problemId);
+    String updateProblem(String problemId, String title, String answer, String description);
 }

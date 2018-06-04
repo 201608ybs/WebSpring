@@ -8,4 +8,5 @@ public interface UserService {
     List<User> logIn(String username, String password);
     String registerUser(String userName, String password, String phoneNumber, String email);
     String getUserInfo(String userId);
+    String getCommonUser(String userId);
 }

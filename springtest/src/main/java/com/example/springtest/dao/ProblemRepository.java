@@ -29,4 +29,6 @@ public interface ProblemRepository extends JpaRepository<Problem,String> {
     @Query("select p from Problem p where p.userByUserId.username like :username")
     List<Problem> findLikeProblemsByUser(@Param("username") String username);
 
+    @Override
+    void delete(Problem problem);
 }

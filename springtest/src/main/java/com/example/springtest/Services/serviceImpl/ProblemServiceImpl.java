@@ -4,6 +4,7 @@ import com.example.springtest.JavaBean.ProblemDetail;
 import com.example.springtest.JavaBean.SimpleHistory;
 import com.example.springtest.JavaBean.SimpleTag;
 import com.example.springtest.Services.ProblemService;
+import com.example.springtest.Util.AppConfig;
 import com.example.springtest.dao.HistoryRepository;
 import com.example.springtest.dao.ProblemRepository;
 import com.example.springtest.dao.TagRepository;
@@ -35,6 +36,8 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Resource
     private UserRepository userRepository;
+
+    private AppConfig appConfig;
 
     @Override
     public String getProblemDetail(String problemId) {
