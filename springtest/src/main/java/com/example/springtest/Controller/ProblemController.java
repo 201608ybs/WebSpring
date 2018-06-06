@@ -59,6 +59,9 @@ public class ProblemController {
         return problemService.addHistory(historyContent,problemId);
     }
 
+    /**
+     * Test
+     * */
     @PostMapping(value = "addProblem")
     @ResponseBody
     public String addProblem(@RequestParam("title") String title,
