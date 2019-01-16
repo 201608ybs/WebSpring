@@ -7,6 +7,7 @@ pipeline:
     image: maven:3.6.0-jdk-8-alpine
     commands:
       - mvn install
+      
   publish:
     image: plugins/docker
     repo: 201608ybs/web-backend
