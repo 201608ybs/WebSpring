@@ -1,0 +1,16 @@
+workspace:
+  base: /springtest
+  path: src/github.com/201608ybs/WebSpring
+
+pipeline:
+  build: 
+    image: maven:3.6.0-jdk-8-alpine
+    commands:
+      - mvn install
+  publish:
+    image: plugins/docker
+    repo: 201608ybs/web-backend
+    tags: ["latest"]
+    secrets: [ docker_username, docker_password ]
+    dockerfile: Dockerfile
+    
