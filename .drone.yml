@@ -8,6 +8,7 @@ pipeline:
     commands:
       - mvn install
       
+      
   publish:
     image: plugins/docker
     repo: 201608ybs/web-backend
